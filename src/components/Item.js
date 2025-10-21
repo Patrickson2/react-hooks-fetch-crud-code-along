@@ -1,16 +1,23 @@
 import React from "react";
 
-function Item({ item }) {
+function Item({ item, onUpdateItem, onDeleteItem }) {
+  function handleDeleteClick() {
+    onDeleteItem(item.id);
+  }
+
   return (
     <li className={item.isInCart ? "in-cart" : ""}>
       <span>{item.name}</span>
       <span className="category">{item.category}</span>
-      <button className={item.isInCart ? "remove" : "add"}>
-        {item.isInCart ? "Remove From" : "Add to"} Cart
+      <button className="add" onClick={() => onUpdateItem({ ...item, isInCart: !item.isInCart })}>
+        {item.isInCart ? "Remove From Cart" : "Add to Cart"}
       </button>
-      <button className="remove">Delete</button>
+      <button className="remove" onClick={handleDeleteClick}>
+        Delete
+      </button>
     </li>
   );
 }
+
 
 export default Item;
